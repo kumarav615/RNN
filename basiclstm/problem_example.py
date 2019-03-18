@@ -1,0 +1,37 @@
+from random import randint
+from numpy import array
+from numpy import argmax
+
+
+# generate a sequence of random numbers in [0, n_features)
+def generate_sequence(length, n_features):
+	return [randint(0, n_features-1) for _ in range(length)]
+
+
+# one hot encode sequence
+def one_hot_encode(sequence, n_features):
+	encoding = list()
+	for value in sequence:
+		vector = [0 for _ in range(n_features)]
+		vector[value] = 1
+		encoding.append(vector)
+	return array(encoding)
+
+
+# decode a one hot encoded string
+def one_hot_decode(encoded_seq):
+	return [argmax(vector) for vector in encoded_seq]
+
+# generate random sequence
+sequence = generate_sequence(25, 100)
+print(sequence)
+# one hot encode
+encoded = one_hot_encode(sequence, 100)
+print("===================one hot encode===")
+print(encoded)
+print(encoded.shape)
+print(encoded[0])
+# one hot decode
+print("===================decode===")
+decoded = one_hot_decode(encoded)
+print(decoded)
